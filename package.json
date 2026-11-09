@@ -1,0 +1,44 @@
+{
+  "name": "astryx",
+  "version": "1.0.0",
+  "description": "Astryx official table template demo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "playwright test",
+    "astryx": "node node_modules/@astryxdesign/cli/clients/cli/bin/astryx.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/namiyama814/astryx.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/namiyama814/astryx/issues"
+  },
+  "homepage": "https://github.com/namiyama814/astryx#readme",
+  "dependencies": {
+    "@astryxdesign/core": "^0.7.11",
+    "@astryxdesign/theme-butter": "^0.7.11",
+    "@astryxdesign/theme-matcha": "^0.7.11",
+    "@astryxdesign/theme-neutral": "^0.7.11",
+    "@stylexjs/stylex": "^0.19.1",
+    "lucide-react": "^1.70.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@astryxdesign/cli": "^0.7.11",
+    "@playwright/test": "^1.65.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.7"
+  }
+}
