@@ -1,8 +1,6 @@
 # Astryx タスクアプリ
 
-[Astryx](https://github.com/meta/astryx) の公式 `table` テンプレートを基準にしたReact 19 / TypeScript / Viteアプリです。
-
-独自のブランドやコンポーネントスタイルは追加していません。CSSはページの高さ、bodyの余白リセット、テーマ標準フォントの指定だけです。
+GoogleChrome の [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) を参考に、ブラウザ標準の HTML / CSS / TypeScript で実装したタスクアプリです。Modern Web Guidance はフレームワークではなく、Web プラットフォームの実装ガイド集です。
 
 ## 起動
 
@@ -11,19 +9,28 @@ npm install
 npm run dev
 ```
 
-## 構成
+## 機能
 
-- 公式 `AppShell` / `TopNav` に `Layout` / `LayoutHeader` / `LayoutContent` / `LayoutFooter` を配置
-- 公式テンプレートと同じ `Table` / `TableColumn` にタスクデータを表示
-- `HStack` / `VStack` / `Grid` で余白と可変幅レイアウトを構成
-- `Heading` / `Text` / `Badge` / `Avatar` で情報を表示
-- `Dialog` / `DialogHeader` と標準フォーム部品でタスク編集
-- `TextInput` / `TextArea` / `DateInput` / `Selector` / `CheckboxInput` を使用
-- `TabList` / `SegmentedControl` でフィルタと表示切り替え
-- `Card` でボード表示、`ProgressBar` で完了率、`Toast` で通知と削除取り消し
-- ヘッダーの「外観」で公式Neutral / Matcha / Butterとダークモードを変更
+- タスクの追加・編集・削除・削除取り消し
+- 状態・優先度・キーワードによる絞り込み
+- リスト／ボード表示、完了数と進捗表示
+- Neutral / Matcha / Butter の独自配色とダークモード
+- localStorage による保存（以前のタスク・外観のキーを継続使用）
 
-初期テーマはNeutral。タスクと外観はlocalStorageに保存します。前バージョンのタスクも引き継ぎます。サーバー同期はありません。
+サーバー同期や認証はありません。テーマ名は以前の設定との互換用で、Astryx のテーマパッケージには依存しません。
+
+## 構成と採用したガイド
+
+- `src/main.ts`: ネイティブ DOM、イベント、FormData による状態更新
+- `src/data.ts`: タスク型、初期データ、保存データ読み込み
+- `src/style.css`: CSS レイヤー、Grid、コンテナクエリ、論理プロパティ、テーマ
+- `tests/workspace.spec.ts`: Playwright の操作テスト
+
+Modern Web Guidance の `dialog` / `forms` / `css-layout` ガイドを参照しました。
+
+編集・設定画面には `<dialog>` と `showModal()` を採用し、フォーカス制御・Esc キー・背景の操作抑止はブラウザに任せています。フォームには標準入力、必須チェック、ラベルを使用。検索は `<search>`、一覧は `<table>`、進捗は `<progress>` を使用しています。
+
+レイアウトには CSS Grid / Flexbox とコンテナクエリを使用。`field-sizing` は未対応時も通常の textarea として操作でき、アニメーションは `prefers-reduced-motion` に従います。狭い画面では表の領域内だけを横スクロールできます。
 
 ## 検証
 
@@ -34,11 +41,3 @@ npm test
 ```
 
 既存ブラウザを使う場合は `PLAYWRIGHT_EXECUTABLE_PATH` を指定できます。
-
-## 公式リファレンス
-
-```sh
-npm run astryx -- template table
-npm run astryx -- component Table
-npm run astryx -- component Layout
-```
